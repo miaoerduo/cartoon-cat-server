@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/lazeload.js"></script>
+	<script src="js/util.js"></script>
+	<style>
+		body {
+			background-color: #888;
+		}
+		#img-list {
+			width: 960px;
+			margin: 0 auto;
+		}
+		#img-list p {
+			display: inline-block;
+			width: 960px;
+			margin: 5px auto;
+			text-align: center;
+		}
+		#img-list img {
+			width: 960px;
+			display: inline-block;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+<div id="img-list"></div>
+<script>
+$(function() {
+	var img_list = $('#img-list');
+	var cartoon = getQueryString('cartoon');
+	var chapter = getQueryString('chapter');
+
+	var host = window.location.host;
+	$.getJSON('http://' + host + '/get_img_list?cartoon=' + cartoon + '&chapter=' + chapter,
+		function (data) {
+			var urls = data['img'];
+			urls.forEach(function (url) {
+				img_list.append(
+					'<p><img src="./img/loading.png" lazy-src="'+ url +'"/></p>'
+					);
+			});
+			new LazyLoad().init();
+		});
+});
+</script>
+</body>
+</html>

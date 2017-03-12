@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="css/metro.min.css" rel="stylesheet" media="screen">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/metro.min.js"></script>
+	<style>
+		.list a {
+			color: white;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body class="bg-grayLighter">
+	<h1>松鼠漫画站点</h1>
+	<p>开始你的漫画之旅</p>
+	<p>这是一个十分简易的用于本地浏览的漫画的网站，希望你能喜欢</p>
+	<div class="listview list-type-tiles" id='list'></div>
+
+</body>
+<script>
+	$(function () {
+	    var host = window.location.host;
+		$.getJSON('http://'+ host + '/get_cartoon_list', function (data) {
+			var cartoon_list = data['cartoon'];
+			var list = $('#list');
+			cartoon_list.forEach(function(data) {
+				list.append('<div class="list bg-grayLight"><a href="cartoon.html?cartoon=' + data + '" target="_blank"><span class="list-title">'+ data +'</span></a></div>');
+			});
+		});
+	});
+</script>
+</html>

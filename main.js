@@ -62,6 +62,7 @@ app.get('/get_cartoon_list', function (req, res) {
  * 获取章节信息
  */
 app.get('/get_chapter_list', function (req, res) {
+
     var cartoon = req.query.cartoon;
     if (!cartoon) {
         res.jsonp(ErrorHelper.missing_param('cartoon'));
@@ -94,7 +95,7 @@ app.get('/get_chapter_list', function (req, res) {
 });
 
 app.get('/get_img_list', function (req, res) {
-    console.log(req.query);
+
     var cartoon = req.query.cartoon;
     if (!cartoon) {
         res.jsonp(ErrorHelper.missing_param('cartoon'));
@@ -127,7 +128,7 @@ app.get('/get_img_list', function (req, res) {
             }
             // 按名字排序
             images.sort(function (lhs, rhs) {
-                return parseInt(lhs.split('.')[0]) < parseInt(rhs.split('.')[0]);
+                return parseInt(lhs.split('.')[0]) - parseInt(rhs.split('.')[0]);
             });
 
             var urls = images.map(function (image) {

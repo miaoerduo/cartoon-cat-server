@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="css/metro.min.css" rel="stylesheet" media="screen">
+	<link href="css/metro-colors.min.css" rel="stylesheet" media="screen">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/metro.min.js"></script>
+	<script src="js/util.js"></script>
+	<style type="text/css">
+		.list a {
+			color: white;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body class="bg-grayLighter">
+	<h1 id="cartoon-title"></h1>
+	<div class="listview list-type-tiles" id="list">
+    </div>
+</body>
+<script>
+
+$(function() {
+	var cartoon = getQueryString('cartoon');
+	$('#cartoon-title').html(cartoon);
+	var list = $('#list');
+	var host = window.location.host;
+	$.getJSON('http://' + host + '/get_chapter_list?cartoon=' + cartoon, function(data) {
+
+		var chapter_list = data['chapter'];
+		chapter_list.forEach(function(data) {
+			list.append('<div class="list bg-grayLight"><a href="chapter.html?cartoon=' + cartoon + '&chapter=' + data + '" target="_blank"><span class="list-title">' + data + '</span></a></div>')
+		});
+	});
+
+});
+
+</script>
+</html>

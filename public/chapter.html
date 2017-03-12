@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>漫画喵</title>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/lazeload.js"></script>
@@ -35,6 +35,7 @@ $(function() {
 	var img_list = $('#img-list');
 	var cartoon = getQueryString('cartoon');
 	var chapter = getQueryString('chapter');
+	document.title = cartoon;
 
 	var host = window.location.host;
 	$.getJSON('http://' + host + '/get_img_list?cartoon=' + cartoon + '&chapter=' + chapter,

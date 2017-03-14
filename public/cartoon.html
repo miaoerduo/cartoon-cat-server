@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>漫画喵</title>
 	<link href="css/metro.min.css" rel="stylesheet" media="screen">
-	<link href="css/metro-colors.min.css" rel="stylesheet" media="screen">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/metro.min.js"></script>
 	<script src="js/util.js"></script>
@@ -19,6 +18,12 @@
 	<h1 id="cartoon-title" style="margin: 20px auto 20px 20px"></h1>
 	<div class="listview list-type-tiles" id="list">
     </div>
+	<div data-role="dialog" id="dialog" class="padding20 dialog" data-close-button="true" data-overlay="true" data-overlay-color="op-dark" data-overlay-click-close="true" style="width: auto; height: auto; visibility: visible; left: 493px; top: 123.5px;">
+		<h1>Wrong</h1>
+		<p id="wrong-content">
+		</p>
+		<span class="dialog-close-button"></span>
+	</div>
 </body>
 <script>
 
@@ -29,7 +34,11 @@ $(function() {
 	var list = $('#list');
 	var host = window.location.host;
 	$.getJSON('http://' + host + '/get_chapter_list?cartoon=' + cartoon, function(data) {
-
+		if (data['code'] != 0) {
+		    $('#wrong-content').text(JSON.stringify(data));
+            metroDialog.open('#dialog');
+            return;
+		}
 		var chapter_list = data['chapter'];
 		chapter_list.forEach(function(data) {
 			list.append('<div class="list bg-grayLight"><a href="chapter.html?cartoon=' + cartoon + '&chapter=' + data + '" target="_blank"><span class="list-title">' + data + '</span></a></div>')

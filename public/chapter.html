@@ -3,14 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>漫画喵</title>
-
-	<script src="js/jquery.min.js"></script>
+    <link href="css/metro.min.css" rel="stylesheet" media="screen">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/metro.min.js"></script>
 	<script src="js/lazeload.js"></script>
 	<script src="js/util.js"></script>
 	<style>
-		body {
-			background-color: #888;
-		}
 		#img-list {
 			width: 960px;
 			margin: 0 auto;
@@ -28,18 +26,29 @@
 		}
 	</style>
 </head>
-<body>
+<body class="bg-grayLight">
 <div id="img-list"></div>
+<div data-role="dialog" id="dialog" class="padding20 dialog" data-close-button="true" data-overlay="true" data-overlay-color="op-dark" data-overlay-click-close="true" style="width: auto; height: auto; visibility: visible; left: 493px; top: 123.5px;">
+    <h1>Wrong</h1>
+    <p id="wrong-content">
+    </p>
+    <span class="dialog-close-button"></span>
+</div>
 <script>
 $(function() {
 	var img_list = $('#img-list');
 	var cartoon = getQueryString('cartoon');
 	var chapter = getQueryString('chapter');
-	document.title = cartoon;
+	document.title = chapter + ' - ' + cartoon;
 
 	var host = window.location.host;
 	$.getJSON('http://' + host + '/get_img_list?cartoon=' + cartoon + '&chapter=' + chapter,
 		function (data) {
+	        if (data['code'] != 0) {
+                $('#wrong-content').text(JSON.stringify(data));
+                metroDialog.open('#dialog');
+                return;
+            }
 			var urls = data['img'];
 			urls.forEach(function (url) {
 				img_list.append(

@@ -20,12 +20,21 @@
 		<p>这是一个十分简易的用于本地浏览的漫画的网站，希望你能喜欢</p>
 	</div>
 	<div class="listview list-type-tiles" id='list'></div>
-
+	<div data-role="dialog" id="dialog" class="padding20 dialog" data-close-button="true" data-overlay="true" data-overlay-color="op-dark" data-overlay-click-close="true" style="width: auto; height: auto; visibility: visible; left: 493px; top: 123.5px;">
+		<h1>Wrong</h1>
+		<p id="wrong-content">
+		</p>
+		<span class="dialog-close-button"></span>
+	</div>
 </body>
 <script>
 	$(function () {
 	    var host = window.location.host;
 		$.getJSON('http://'+ host + '/get_cartoon_list', function (data) {
+		    if (data['code'] != 0) {
+                metroDialog.open('#dialog');
+                return;
+			}
 			var cartoon_list = data['cartoon'];
 			var list = $('#list');
 			cartoon_list.forEach(function(data) {

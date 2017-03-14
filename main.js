@@ -3,7 +3,8 @@ var fs = require("fs");
 
 var app = express();
 
-var HOST = "localhost";
+var HOST = "localhost"; // 如果不是在本机上使用，请改成实际的ip地址
+                        // 后面的图片的URL会使用这个变量来构造
 var PORT = 3000;
 
 /**
@@ -20,7 +21,7 @@ var ErrorHelper = {
         return {
             'msg': 'missing param: ' + param,
             'code': 2
-        }
+        };
     },
     'error_param': function (param, data) {
         return {
@@ -32,7 +33,7 @@ var ErrorHelper = {
         return {
             'msg': 'cannot find ' + param,
             'code': 4
-        }
+        };
     }
 };
 
@@ -54,7 +55,7 @@ app.get('/get_cartoon_list', function (req, res) {
         if (err) {
             res.jsonp(ErrorHelper.internal_error());
         }
-        res.jsonp({'cartoon': files});
+        res.jsonp({'cartoon': files, 'code': 0});
     });
 });
 
@@ -89,7 +90,7 @@ app.get('/get_chapter_list', function (req, res) {
                 return d.length > 0;
             });
 
-            res.jsonp({'chapter': chapter_list});
+            res.jsonp({'chapter': chapter_list, 'code': 0});
         });
     });
 });
@@ -134,7 +135,7 @@ app.get('/get_img_list', function (req, res) {
             var urls = images.map(function (image) {
                 return 'http://' + HOST + ':' + PORT + '/store/' + cartoon + '/' + chapter + '/' + image;
             });
-            res.jsonp({'img': urls});
+            res.jsonp({'img': urls, 'code': 0});
         });
     });
 });

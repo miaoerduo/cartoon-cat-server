@@ -41,7 +41,7 @@ var ErrorHelper = {
  * 检查参数格式
  */
 function checkParam(param) {
-    return /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/.test(param);
+    return /^[^\.\\\/\s]+$/.test(param);
 }
 
 

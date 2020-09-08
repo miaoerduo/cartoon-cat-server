@@ -1,6 +1,6 @@
 # cartoon-cat-server
 
-博客地址：http://www.miaoerduo.com/nodejs/简易漫画网站搭建-漫画喵server版.html
+博客地址：https://www.miaoerduo.com/2017/03/14/cartoon-cat-server/
 
 与cartoon-cat的配套的漫画服务器，用于在线的漫画阅读。具体的细节请参阅博客。
 
